@@ -2,6 +2,7 @@ defmodule RushingWeb.StatisticsController do
   use RushingWeb, :controller
 
   alias Rushing.Repository
+
   def index(conn, %{"page" => page, "per_page" => per_page, "filters" => filters}) do
     filters_json = Jason.decode!(filters)
     page_int = String.to_integer(page)

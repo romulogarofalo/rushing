@@ -6,15 +6,19 @@ alias Rushing.Models.Statistics
 |> Enum.reduce_while("", fn element, acc ->
   cond do
     element =~ "}" ->
-      acc <> "}"
+      (acc <> "}")
       |> Jason.decode!()
       |> Statistics.create_changeset()
       |> Repo.insert!()
+
       {:cont, ""}
+
     element =~ "[" ->
       {:cont, acc}
+
     element =~ "]" ->
       {:halt, ""}
+
     true ->
       {:cont, acc <> element}
   end
