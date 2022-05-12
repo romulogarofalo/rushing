@@ -54,23 +54,23 @@ defmodule Rushing.Models.Statistics do
 
   defp parse_params(params) do
     %{
-    player_name: params["Player"],
-    player_team_abbreviation: params["Team"],
-    player_postion: params["Pos"],
-    rushing_attempts_per_game_average: params["Att"],
-    rushing_attempts: params["Att/G"],
-    total_rushing_yards: parse_yards(params["Yds"]),
-    rushing_average_yards_per_attempt: params["Avg"],
-    rushing_yards_per_game: params["Yds/G"],
-    total_rushing_touchdowns: params["TD"],
-    longest_rush: parse_logest_run(params["Lng"]),
-    is_longest_rush_a_td: parse_is_logest_run(params["Lng"]),
-    rushing_first_downs: params["1st"],
-    rushing_first_down_percentage: params["1st"],
-    rushing_more_than_twenty_yards: params["20+"],
-    rushing_more_than_forty_yards: params["40+"],
-    rushing_fumbles: params["FUM"]
-  }
+      player_name: params["Player"],
+      player_team_abbreviation: params["Team"],
+      player_postion: params["Pos"],
+      rushing_attempts_per_game_average: params["Att"],
+      rushing_attempts: params["Att/G"],
+      total_rushing_yards: parse_yards(params["Yds"]),
+      rushing_average_yards_per_attempt: params["Avg"],
+      rushing_yards_per_game: params["Yds/G"],
+      total_rushing_touchdowns: params["TD"],
+      longest_rush: parse_logest_run(params["Lng"]),
+      is_longest_rush_a_td: parse_is_logest_run(params["Lng"]),
+      rushing_first_downs: params["1st"],
+      rushing_first_down_percentage: params["1st"],
+      rushing_more_than_twenty_yards: params["20+"],
+      rushing_more_than_forty_yards: params["40+"],
+      rushing_fumbles: params["FUM"]
+    }
   end
 
   defp parse_logest_run(run) when is_nil(run), do: 0
@@ -80,8 +80,8 @@ defmodule Rushing.Models.Statistics do
     if run =~ "T" do
       run
       |> String.split("T")
-      |> Enum.join
-      |> String.to_integer
+      |> Enum.join()
+      |> String.to_integer()
     else
       String.to_integer(run)
     end
@@ -92,6 +92,7 @@ defmodule Rushing.Models.Statistics do
   defp parse_is_logest_run(run) when is_binary(run), do: run =~ "T"
 
   defp parse_yards(yards) when is_nil(yards), do: 0
+
   defp parse_yards(yards) when is_binary(yards) do
     yards
     |> String.replace(",", "")
