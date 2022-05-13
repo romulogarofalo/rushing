@@ -27,17 +27,17 @@ defmodule Rushing.Repository do
           row_number: row_number() |> over(order_by: r.id)
         }
 
-    query =
-      from e in subquery(sub_query),
-        where: e.row_number > ^(per_page * (page - 1)) and e.row_number <= ^(per_page * page)
-
     query_filtered =
-      Enum.reduce(filters, query, fn {key, value}, _new_query ->
-        add_filter(key, value, query)
+      Enum.reduce(filters, sub_query, fn {key, value}, _new_query ->
+        add_filter(key, value, sub_query)
       end)
 
-    result = Repo.all(query_filtered)
-    count = Repo.one(from e in query_filtered, select: count("*"))
+    query =
+      from e in subquery(query_filtered),
+        where: e.row_number > ^(per_page * (page - 1)) and e.row_number <= ^(per_page * page)
+
+    result = Repo.all(query)
+    count = Repo.one(from e in query, select: count("*"))
 
     has_next = length(result)
     has_prev = page > 1
@@ -51,24 +51,24 @@ defmodule Rushing.Repository do
     }
   end
 
-  def add_filter("name", value, query),
+  def add_filter(:name, value, query),
     do: from(u in query, where: like(u.player_name, ^"%#{value}%"))
 
-  def add_filter("total_rushing_yards", "desc", query),
+  def add_filter(:total_rushing_yards, "desc", query),
     do: from(u in query, order_by: [desc: u.total_rushing_yards])
 
-  def add_filter("total_rushing_yards", "asc", query),
+  def add_filter(:total_rushing_yards, "asc", query),
     do: from(u in query, order_by: [asc: u.total_rushing_yards])
 
-  def add_filter("longest_rush", "desc", query),
+  def add_filter(:longest_rush, "desc", query),
     do: from(u in query, order_by: [desc: u.longest_rush])
 
-  def add_filter("longest_rush", "asc", query),
+  def add_filter(:longest_rush, "asc", query),
     do: from(u in query, order_by: [asc: u.longest_rush])
 
-  def add_filter("total_rushing_touchdowns", "desc", query),
+  def add_filter(:total_rushing_touchdowns, "desc", query),
     do: from(u in query, order_by: [desc: u.total_rushing_touchdowns])
 
-  def add_filter("total_rushing_touchdowns", "asc", query),
+  def add_filter(:total_rushing_touchdowns, "asc", query),
     do: from(u in query, order_by: [asc: u.total_rushing_touchdowns])
 end
