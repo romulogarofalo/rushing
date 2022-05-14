@@ -1,4 +1,4 @@
-defmodule Rushing.Models.Statistics do
+defmodule Rushing.Statistics.StatisticsModel do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -63,8 +63,8 @@ defmodule Rushing.Models.Statistics do
       rushing_average_yards_per_attempt: params["Avg"],
       rushing_yards_per_game: params["Yds/G"],
       total_rushing_touchdowns: params["TD"],
-      longest_rush: parse_logest_run(params["Lng"]),
-      is_longest_rush_a_td: parse_is_logest_run(params["Lng"]),
+      longest_rush: parse_longest_run(params["Lng"]),
+      is_longest_rush_a_td: parse_is_longest_run(params["Lng"]),
       rushing_first_downs: params["1st"],
       rushing_first_down_percentage: params["1st"],
       rushing_more_than_twenty_yards: params["20+"],
@@ -73,10 +73,10 @@ defmodule Rushing.Models.Statistics do
     }
   end
 
-  defp parse_logest_run(run) when is_nil(run), do: 0
-  defp parse_logest_run(run) when is_integer(run), do: run
+  defp parse_longest_run(run) when is_nil(run), do: 0
+  defp parse_longest_run(run) when is_integer(run), do: run
 
-  defp parse_logest_run(run) when is_binary(run) do
+  defp parse_longest_run(run) when is_binary(run) do
     if run =~ "T" do
       run
       |> String.split("T")
@@ -87,9 +87,9 @@ defmodule Rushing.Models.Statistics do
     end
   end
 
-  defp parse_is_logest_run(run) when is_nil(run), do: false
-  defp parse_is_logest_run(run) when is_integer(run), do: false
-  defp parse_is_logest_run(run) when is_binary(run), do: run =~ "T"
+  defp parse_is_longest_run(run) when is_nil(run), do: false
+  defp parse_is_longest_run(run) when is_integer(run), do: false
+  defp parse_is_longest_run(run) when is_binary(run), do: run =~ "T"
 
   defp parse_yards(yards) when is_nil(yards), do: 0
 

@@ -1,7 +1,7 @@
 defmodule RushingWeb.StatisticsController do
   use RushingWeb, :controller
 
-  alias Rushing.Repository
+  alias Rushing.Statistics
 
   def index(
         conn,
@@ -15,9 +15,9 @@ defmodule RushingWeb.StatisticsController do
       ) do
     page_int = String.to_integer(page)
     per_page_int = String.to_integer(per_page)
-
+    # TO DO: make a changeset to validate input
     render(conn, "show.json",
-      data: Repository.get_pages(page_int, per_page_int, name, field, order)
+      data: Statistics.list_statistics(page_int, per_page_int, name, field, order)
     )
   end
 end

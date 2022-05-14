@@ -1,5 +1,5 @@
 alias Rushing.Repo
-alias Rushing.Models.Statistics
+alias Rushing.Statistics.StatisticsModel
 
 "priv/rushing.json"
 |> File.stream!([:raw, read_ahead: 17], :line)
@@ -8,7 +8,7 @@ alias Rushing.Models.Statistics
     element =~ "}" ->
       (acc <> "}")
       |> Jason.decode!()
-      |> Statistics.create_changeset()
+      |> StatisticsModel.create_changeset()
       |> Repo.insert!()
 
       {:cont, ""}

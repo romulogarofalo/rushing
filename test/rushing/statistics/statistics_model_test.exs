@@ -1,8 +1,8 @@
-defmodule Rushing.Models.StatisticsTest do
+defmodule Rushing.Statistics.StatisticsModelTest do
   use ExUnit.Case
   use Rushing.DataCase
 
-  alias Rushing.Models.Statistics
+  alias Rushing.Statistics.StatisticsModel
   alias Rushing.Repo
 
   describe "create_changeset/1" do
@@ -27,7 +27,7 @@ defmodule Rushing.Models.StatisticsTest do
 
       assert {
                :ok,
-               %Statistics{
+               %StatisticsModel{
                  is_longest_rush_a_td: false,
                  longest_rush: 7,
                  player_name: "Joe Banyard",
@@ -46,7 +46,7 @@ defmodule Rushing.Models.StatisticsTest do
                  total_rushing_yards: 7
                }
              } =
-               Statistics.create_changeset(input)
+               StatisticsModel.create_changeset(input)
                |> Repo.insert()
     end
 
@@ -68,7 +68,7 @@ defmodule Rushing.Models.StatisticsTest do
                  rushing_fumbles: {"can't be blank", [validation: :required]}
                ],
                valid?: false
-             } = Statistics.create_changeset(%{})
+             } = StatisticsModel.create_changeset(%{})
     end
 
     test "with wrong params" do
@@ -97,7 +97,7 @@ defmodule Rushing.Models.StatisticsTest do
                  player_postion: {"is invalid", [type: :string, validation: :cast]}
                ],
                valid?: false
-             } = Statistics.create_changeset(input)
+             } = StatisticsModel.create_changeset(input)
     end
   end
 end
