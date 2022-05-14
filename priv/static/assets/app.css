@@ -1,0 +1,22 @@
+/* css/app.css */
+th {
+  max-width: 100px;
+}
+.paginator {
+  display: flex;
+  justify-content: space-around;
+}
+.per_page {
+  width: 300px;
+}
+.table-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.seach-group {
+  width: auto !important;
+}
+.clickable:hover {
+  background-color: yellow;
+}
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vLi4vYXNzZXRzL2Nzcy9hcHAuY3NzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIvKiBUaGlzIGZpbGUgaXMgZm9yIHlvdXIgbWFpbiBhcHBsaWNhdGlvbiBDU1MgKi9cbi8qIEBpbXBvcnQgXCIuL3Bob2VuaXguY3NzXCI7ICovXG5cbnRoIHtcbiAgbWF4LXdpZHRoOiAxMDBweDtcbn1cblxuLnBhZ2luYXRvciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xufVxuXG4ucGVyX3BhZ2Uge1xuICB3aWR0aDogMzAwcHg7XG59XG5cbi50YWJsZS1jb250YWluZXIge1xuICBvdmVyZmxvdy14OiBhdXRvO1xuICBvdmVyZmxvdy15OiBoaWRkZW47XG59XG5cbi5zZWFjaC1ncm91cCB7XG4gIHdpZHRoOiBhdXRvICFpbXBvcnRhbnQ7XG59XG5cbi5jbGlja2FibGU6aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB5ZWxsb3c7XG59Il0sCiAgIm1hcHBpbmdzIjogIjtBQUdBO0FBQ0U7QUFBQTtBQUdGO0FBQ0U7QUFDQTtBQUFBO0FBR0Y7QUFDRTtBQUFBO0FBR0Y7QUFDRTtBQUNBO0FBQUE7QUFHRjtBQUNFO0FBQUE7QUFHRjtBQUNFO0FBQUE7IiwKICAibmFtZXMiOiBbXQp9Cg== */
