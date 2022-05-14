@@ -24,7 +24,9 @@ defmodule RushingWeb.Router do
   scope "/api", RushingWeb do
     pipe_through :api
 
-    get "/statistics/page/:page/per_page/:per_page/filters/:filters", StatisticsController, :index
+    get "/statistics/page/:page/per_page/:per_page/name_filter/:name/field_order/:field/order_direction/:order",
+        StatisticsController,
+        :index
   end
 
   # Enables LiveDashboard only for development

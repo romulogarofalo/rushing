@@ -4,7 +4,7 @@ defmodule Rushing.Repository do
   alias Rushing.Repo
   alias Rushing.Models.Statistics
 
-  def get_pages(page, per_page, filters \\ []) do
+  def get_pages(page, per_page, name, field, order) do
     sub_query =
       from r in Statistics,
         select: %{
@@ -24,13 +24,23 @@ defmodule Rushing.Repository do
           rushing_more_than_twenty_yards: r.rushing_more_than_twenty_yards,
           rushing_more_than_forty_yards: r.rushing_more_than_forty_yards,
           rushing_fumbles: r.rushing_fumbles,
-          row_number: row_number() |> over(order_by: r.id)
-        }
+          row_number: over(row_number(), :get_field_to_order)
+        },
+        windows: [get_field_to_order: [order_by: ^get_field_to_order(field, order)]]
+
+    query_filtered_name =
+      if not is_nil(name) do
+        add_filter("name", name, sub_query)
+      else
+        sub_query
+      end
 
     query_filtered =
-      Enum.reduce(filters, sub_query, fn {key, value}, _new_query ->
-        add_filter(key, value, sub_query)
-      end)
+      if not is_nil(field) do
+        add_filter(field, order, query_filtered_name)
+      else
+        query_filtered_name
+      end
 
     query =
       from e in subquery(query_filtered),
@@ -51,24 +61,52 @@ defmodule Rushing.Repository do
     }
   end
 
-  def add_filter(:name, value, query),
+  def get_field_to_order("total_rushing_yards", "desc") do
+    [desc: dynamic([r], r.total_rushing_yards)]
+  end
+
+  def get_field_to_order("total_rushing_yards", "asc") do
+    [asc: dynamic([r], r.total_rushing_yards)]
+  end
+
+  def get_field_to_order("longest_rush", "desc") do
+    [desc: dynamic([r], r.longest_rush)]
+  end
+
+  def get_field_to_order("longest_rush", "asc") do
+    [asc: dynamic([r], r.longest_rush)]
+  end
+
+  def get_field_to_order("total_rushing_touchdowns", "desc") do
+    [desc: dynamic([r], r.total_rushing_touchdowns)]
+  end
+
+  def get_field_to_order("total_rushing_touchdowns", "asc") do
+    [asc: dynamic([r], r.total_rushing_touchdowns)]
+  end
+
+  def get_field_to_order(nil, nil) do
+    [desc: dynamic([r], r.total_rushing_yards)]
+  end
+
+  def add_filter("name", value, query),
     do: from(u in query, where: like(u.player_name, ^"%#{value}%"))
 
-  def add_filter(:total_rushing_yards, "desc", query),
+  def add_filter("total_rushing_yards", "desc", query),
     do: from(u in query, order_by: [desc: u.total_rushing_yards])
 
-  def add_filter(:total_rushing_yards, "asc", query),
+  def add_filter("total_rushing_yards", "asc", query),
     do: from(u in query, order_by: [asc: u.total_rushing_yards])
 
-  def add_filter(:longest_rush, "desc", query),
+  def add_filter("longest_rush", "desc", query),
     do: from(u in query, order_by: [desc: u.longest_rush])
 
-  def add_filter(:longest_rush, "asc", query),
+  def add_filter("longest_rush", "asc", query),
     do: from(u in query, order_by: [asc: u.longest_rush])
 
-  def add_filter(:total_rushing_touchdowns, "desc", query),
+  def add_filter("total_rushing_touchdowns", "desc", query),
     do: from(u in query, order_by: [desc: u.total_rushing_touchdowns])
 
-  def add_filter(:total_rushing_touchdowns, "asc", query),
+  def add_filter("total_rushing_touchdowns", "asc", query),
     do: from(u in query, order_by: [asc: u.total_rushing_touchdowns])
 end
