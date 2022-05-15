@@ -23,6 +23,7 @@ defmodule Rushing.Repo.Migrations.CreateRushingStatistics do
       timestamps()
     end
 
+    create index(:rushing_statistics, [:player_name])
     create index(:rushing_statistics, [:total_rushing_yards])
     create index(:rushing_statistics, [:longest_rush])
     create index(:rushing_statistics, [:total_rushing_touchdowns])
