@@ -3,6 +3,8 @@ defmodule Rushing.Helpers.Pagination do
 
   alias Rushing.Repo
 
+  @derive Jason.Encoder
+
   defstruct [
     :result,
     :count,

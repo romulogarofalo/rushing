@@ -1,14 +1,12 @@
 const get_filters = () => {
     const nameSearch = document.getElementById("search-name").value
-    // const sortTotalRushingYards = document.getElementById("sort_total_rushing_yards").value
-    // const sortLongestRush = document.getElementById("sort_longest_rush").value
-    // const sortTotalRushingTd = document.getElementById("sort_total_rushing_td").value
+    const filter = localStorage.getItem("filter")
+    const order = localStorage.getItem("order")
 
     return {
         name: nameSearch,
-        // total_rushing_yards: sortTotalRushingYards,
-        // longest_rush: sortLongestRush,
-        // total_rushing_touchdowns: sortTotalRushingTd 
+        filter: filter,
+        order: order
     }
 }
   
@@ -42,23 +40,82 @@ const get_filters = () => {
   }
   
   const sort_total_rushing_yards = () => {
+    const sortTotalRushingYards = document.getElementById("sort_total_rushing_yards").value
+    reset_ordenator()
+    set_ordenator(sortTotalRushingYards, "total_rushing_yards")
     const {current_page, per_page} = get_paginator()
     send_request(current_page, per_page)
   }
   
   const sort_longest_rush = () => {
+    const sortLongestRush = document.getElementById("sort_longest_rush").value
+    reset_ordenator()
+    set_ordenator(sortLongestRush, "longest_rush")
     const {current_page, per_page} = get_paginator()
     send_request(current_page, per_page)
   }
   
   const sort_total_rushing_td = () => {
+    const sortTotalRushingTd = document.getElementById("sort_total_rushing_td")
+    reset_ordenator()
+    set_ordenator(sortTotalRushingTd, "total_rushing_touchdowns")
+
     const {current_page, per_page} = get_paginator()
     send_request(current_page, per_page)
   }
-  
+
+  const set_ordenator = (element, fitler) => {
+    order = localStorage.getItem("order")
+    console.log(order)
+    switch (order) {
+      case "asc":
+        localStorage.setItem("filter", fitler);
+        localStorage.setItem("order", "desc");
+        element.classList.remove("asc");
+        element.classList.add("desc");
+        break;
+      case "":
+        localStorage.setItem("filter", fitler);
+        localStorage.setItem("order", "asc");
+        element.classList.remove("desc");
+        element.classList.add("asc");
+        break;
+      case "desc":
+        localStorage.setItem("filter", "");
+        localStorage.setItem("order", "");
+        element.classList.remove("desc");
+        element.classList.remove("asc");
+        break;
+    }
+  }
+
+  const reset_ordenator = () => {
+    const sortTotalRushingYards = document.getElementById("sort_total_rushing_yards")
+    const sortLongestRush = document.getElementById("sort_longest_rush")
+    const sortTotalRushingTd = document.getElementById("sort_total_rushing_td")
+
+    localStorage.setItem("filter", "");
+
+    // sortTotalRushingYards.classList.remove("desc");
+    // sortTotalRushingYards.classList.remove("asc");
+
+    // sortLongestRush.classList.remove("desc");
+    // sortLongestRush.classList.remove("asc");
+
+    // sortTotalRushingTd.classList.remove("desc");
+    // sortTotalRushingTd.classList.remove("asc");
+  }
+
   const send_request = (current_page, per_page) => {
-    const {name} = get_filters()
-    fetch(`http://localhost:4000/api/statistics/page/${current_page}/per_page/${per_page}/name/${name}`)
+    const {name, filter, order} = get_filters()
+
+    const url = `http://localhost:4000/api/statistics/page/${current_page}/per_page/${per_page}?` + new URLSearchParams({
+      name: name,
+      filter: filter,
+      order: order
+    })
+
+    fetch(url)
     .then(function(response) {
       response.json().then(
         function(decoded) {
@@ -123,11 +180,11 @@ const get_filters = () => {
       <th scope='col'><div class='text-truncate'>player_postion</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_attempts_per_game_average</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_attempts</div></th>\
-      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_yards' id='sort_total_rushing_yards' value=''>total_rushing_yards</div></th>\
+      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_yards()' id='sort_total_rushing_yards' value=''>total_rushing_yards</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_average_yards_per_attempt</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_yards_per_game</div></th>\
-      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_td' id='sort_total_rushing_td' value=''>total_rushing_touchdowns</div></th>\
-      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_longest_rush' id='sort_longest_rush' value=''>longest_rush</div></th>\
+      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_td()' id='sort_total_rushing_td' value=''>total_rushing_touchdowns</div></th>\
+      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_longest_rush()' id='sort_longest_rush' value=''>longest_rush</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_first_downs</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_first_down_percentage</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_more_than_twenty_yards</div></th>\
@@ -207,4 +264,6 @@ const get_filters = () => {
     table.replaceChildren(fragment)
   }
   
+  localStorage.setItem("filter", "");
+  localStorage.setItem("order", "");
   send_request(1, 10)

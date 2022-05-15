@@ -24,7 +24,7 @@ defmodule RushingWeb.Router do
   scope "/api", RushingWeb do
     pipe_through :api
 
-    get "/statistics/page/:page/per_page/:per_page/name_filter/:name/field_order/:field/order_direction/:order",
+    get "/statistics/page/:page/per_page/:per_page",
         StatisticsController,
         :index
   end
