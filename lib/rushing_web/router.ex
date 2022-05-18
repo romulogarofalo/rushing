@@ -27,6 +27,10 @@ defmodule RushingWeb.Router do
     get "/statistics/page/:page/per_page/:per_page",
         StatisticsController,
         :index
+
+    get "/statistics/download",
+        StatisticsController,
+        :download
   end
 
   # Enables LiveDashboard only for development
