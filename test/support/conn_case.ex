@@ -25,7 +25,7 @@ defmodule RushingWeb.ConnCase do
       import RushingWeb.ConnCase
 
       alias RushingWeb.Router.Helpers, as: Routes
-
+      alias Rushing.Repo
       # The default endpoint for testing
       @endpoint RushingWeb.Endpoint
     end

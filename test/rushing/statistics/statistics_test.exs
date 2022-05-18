@@ -5,7 +5,7 @@ defmodule Rushing.StatisticsTest do
   alias Rushing.Statistics
   alias Rushing.Statistics.StatisticsModel
 
-  describe "list_statistics/5" do
+  describe "list_statistics_paginated/4" do
     setup do
       inserted_data =
         Enum.map(1..16, fn number ->
@@ -34,8 +34,11 @@ defmodule Rushing.StatisticsTest do
     end
 
     test "with rigth params but no filter", %{inserted_data: inserted_data} do
-      %{result: first_page_with_10} = Statistics.list_statistics(1, 10, nil, nil, nil)
-      %{result: second_page_with_6} = Statistics.list_statistics(2, 10, nil, nil, nil)
+      %{result: first_page_with_10} =
+        Statistics.list_statistics_paginated(%{page: 1, per_page: 10}, nil, nil, nil)
+
+      %{result: second_page_with_6} =
+        Statistics.list_statistics_paginated(%{page: 2, per_page: 10}, nil, nil, nil)
 
       assert length(first_page_with_10) == 10
 
@@ -54,16 +57,16 @@ defmodule Rushing.StatisticsTest do
       assert length(second_page_with_6) == 6
     end
 
-    test "with rigth params with name filter", %{inserted_data: inserted_data} do
-      %{result: result} = Statistics.list_statistics(1, 10, "13", nil, nil)
+    test "with rigth params with name filter" do
+      %{result: result} =
+        Statistics.list_statistics_paginated(%{page: 1, per_page: 10}, "13", nil, nil)
+
       [player_13] = result
       assert player_13.player_name == "13"
       assert length(result) == 1
     end
 
-    test "with rigth params with order_by filter sort_total_rushing_yards", %{
-      inserted_data: inserted_data
-    } do
+    test "with rigth params with order_by filter sort_total_rushing_yards" do
       Enum.map(0..16, fn number ->
         %{
           "Player" => "another player",
@@ -86,7 +89,13 @@ defmodule Rushing.StatisticsTest do
         |> Repo.insert!()
       end)
 
-      %{result: result} = Statistics.list_statistics(1, 13, nil, "total_rushing_yards", "asc")
+      %{result: result} =
+        Statistics.list_statistics_paginated(
+          %{page: 1, per_page: 13},
+          nil,
+          "total_rushing_yards",
+          "asc"
+        )
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7]
 
@@ -95,7 +104,14 @@ defmodule Rushing.StatisticsTest do
         assert param.total_rushing_yards == index
       end)
 
-      %{result: result} = Statistics.list_statistics(1, 13, nil, "total_rushing_yards", "desc")
+      %{result: result} =
+        Statistics.list_statistics_paginated(
+          %{page: 1, per_page: 13},
+          nil,
+          "total_rushing_yards",
+          "desc"
+        )
+
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 7, 7, 7]
 
       Enum.map(list_to_test1, fn index ->
@@ -104,9 +120,7 @@ defmodule Rushing.StatisticsTest do
       end)
     end
 
-    test "with rigth params with order_by filter sort_longest_rush", %{
-      inserted_data: inserted_data
-    } do
+    test "with rigth params with order_by filter sort_longest_rush" do
       Enum.map(0..16, fn number ->
         %{
           "Player" => "another player",
@@ -129,7 +143,8 @@ defmodule Rushing.StatisticsTest do
         |> Repo.insert!()
       end)
 
-      %{result: result} = Statistics.list_statistics(1, 13, nil, "longest_rush", "asc")
+      %{result: result} =
+        Statistics.list_statistics_paginated(%{page: 1, per_page: 13}, nil, "longest_rush", "asc")
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7]
 
@@ -138,7 +153,14 @@ defmodule Rushing.StatisticsTest do
         assert param.longest_rush == index
       end)
 
-      %{result: result} = Statistics.list_statistics(1, 13, nil, "longest_rush", "desc")
+      %{result: result} =
+        Statistics.list_statistics_paginated(
+          %{page: 1, per_page: 13},
+          nil,
+          "longest_rush",
+          "desc"
+        )
+
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 7, 7, 7]
 
       Enum.map(list_to_test1, fn index ->
@@ -147,9 +169,7 @@ defmodule Rushing.StatisticsTest do
       end)
     end
 
-    test "with rigth params with order_by filter total_rushing_touchdowns", %{
-      inserted_data: inserted_data
-    } do
+    test "with rigth params with order_by filter total_rushing_touchdowns" do
       Enum.map(0..16, fn number ->
         %{
           "Player" => "another player",
@@ -172,7 +192,13 @@ defmodule Rushing.StatisticsTest do
         |> Repo.insert!()
       end)
 
-      %{result: result} = Statistics.list_statistics(1, 13, nil, "total_rushing_touchdowns", "asc")
+      %{result: result} =
+        Statistics.list_statistics_paginated(
+          %{page: 1, per_page: 13},
+          nil,
+          "total_rushing_touchdowns",
+          "asc"
+        )
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6]
 
@@ -181,7 +207,13 @@ defmodule Rushing.StatisticsTest do
         assert param.total_rushing_touchdowns == index
       end)
 
-      %{result: result} = Statistics.list_statistics(1, 13, nil, "total_rushing_touchdowns", "desc")
+      %{result: result} =
+        Statistics.list_statistics_paginated(
+          %{page: 1, per_page: 13},
+          nil,
+          "total_rushing_touchdowns",
+          "desc"
+        )
 
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 6, 6]
 

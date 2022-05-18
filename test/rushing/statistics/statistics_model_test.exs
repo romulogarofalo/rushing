@@ -31,7 +31,7 @@ defmodule Rushing.Statistics.StatisticsModelTest do
                  is_longest_rush_a_td: false,
                  longest_rush: 7,
                  player_name: "Joe Banyard",
-                 player_postion: "RB",
+                 player_position: "RB",
                  player_team_abbreviation: "JAX",
                  rushing_attempts: 2.0,
                  rushing_attempts_per_game_average: 2,
@@ -55,7 +55,7 @@ defmodule Rushing.Statistics.StatisticsModelTest do
                errors: [
                  player_name: {"can't be blank", [validation: :required]},
                  player_team_abbreviation: {"can't be blank", [validation: :required]},
-                 player_postion: {"can't be blank", [validation: :required]},
+                 player_position: {"can't be blank", [validation: :required]},
                  rushing_attempts_per_game_average: {"can't be blank", [validation: :required]},
                  rushing_attempts: {"can't be blank", [validation: :required]},
                  rushing_average_yards_per_attempt: {"can't be blank", [validation: :required]},
@@ -94,7 +94,7 @@ defmodule Rushing.Statistics.StatisticsModelTest do
                errors: [
                  player_name: {"is invalid", [type: :string, validation: :cast]},
                  player_team_abbreviation: {"is invalid", [type: :string, validation: :cast]},
-                 player_postion: {"is invalid", [type: :string, validation: :cast]}
+                 player_position: {"is invalid", [type: :string, validation: :cast]}
                ],
                valid?: false
              } = StatisticsModel.create_changeset(input)
