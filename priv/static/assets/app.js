@@ -95,15 +95,6 @@ const get_filters = () => {
     const sortTotalRushingTd = document.getElementById("sort_total_rushing_td")
 
     localStorage.setItem("filter", "");
-
-    // sortTotalRushingYards.classList.remove("desc");
-    // sortTotalRushingYards.classList.remove("asc");
-
-    // sortLongestRush.classList.remove("desc");
-    // sortLongestRush.classList.remove("asc");
-
-    // sortTotalRushingTd.classList.remove("desc");
-    // sortTotalRushingTd.classList.remove("asc");
   }
 
   const send_request = (current_page, per_page) => {
@@ -128,7 +119,19 @@ const get_filters = () => {
       )
     })
   }
-  
+
+  const download = () => {
+    const {name, filter, order} = get_filters()
+
+    const url = `http://localhost:4000/api/statistics/download?` + new URLSearchParams({
+      name: name,
+      filter: filter,
+      order: order
+    })
+
+    window.open(url)
+  }
+
   const build_paginator = (current_page, has_next, has_prev) => {
     paginator = document.getElementById("nav_paginator")
   
@@ -177,7 +180,7 @@ const get_filters = () => {
     table_header.innerHTML = "<tr>\
       <th scope='col'><div class='text-truncate'>player_name</div></th>\
       <th scope='col'><div class='text-truncate'>player_team_abbreviation</div></th>\
-      <th scope='col'><div class='text-truncate'>player_postion</div></th>\
+      <th scope='col'><div class='text-truncate'>player_position</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_attempts_per_game_average</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_attempts</div></th>\
       <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_yards()' id='sort_total_rushing_yards' value=''>total_rushing_yards</div></th>\
@@ -206,9 +209,9 @@ const get_filters = () => {
         player_team_abbreviation.textContent = element.player_team_abbreviation
         line.appendChild(player_team_abbreviation)
   
-        player_postion = document.createElement("td")
-        player_postion.textContent = element.player_postion
-        line.appendChild(player_postion)
+        player_position = document.createElement("td")
+        player_position.textContent = element.player_position
+        line.appendChild(player_position)
   
         rushing_attempts_per_game_average = document.createElement("td")
         rushing_attempts_per_game_average.textContent = element.rushing_attempts_per_game_average

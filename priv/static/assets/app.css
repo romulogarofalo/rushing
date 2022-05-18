@@ -5,6 +5,8 @@ th {
 .paginator {
   display: flex;
   justify-content: space-around;
+  margin: 20px 0px;
+  max-height: 37.07px;
 }
 .per_page {
   width: 300px;
