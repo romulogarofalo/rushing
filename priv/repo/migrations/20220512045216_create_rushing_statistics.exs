@@ -5,7 +5,7 @@ defmodule Rushing.Repo.Migrations.CreateRushingStatistics do
     create table(:rushing_statistics) do
       add :player_name, :string, null: false
       add :player_team_abbreviation, :string, null: false
-      add :player_postion, :string, null: false
+      add :player_position, :string, null: false
       add :rushing_attempts_per_game_average, :integer, null: false
       add :rushing_attempts, :float, null: false
       add :total_rushing_yards, :integer, null: false
@@ -26,7 +26,8 @@ defmodule Rushing.Repo.Migrations.CreateRushingStatistics do
     create index(:rushing_statistics, [:player_name])
     create index(:rushing_statistics, [:total_rushing_yards])
     create index(:rushing_statistics, [:longest_rush])
-    create index(:rushing_statistics, [:total_rushing_touchdowns])
     create index(:rushing_statistics, [:inserted_at])
+
+    execute "CREATE INDEX rushing_statistics_td ON rushing_statistics (total_rushing_touchdowns) WHERE is_longest_rush_a_td = true"
   end
 end
