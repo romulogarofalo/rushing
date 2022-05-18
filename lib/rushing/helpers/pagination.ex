@@ -16,8 +16,13 @@ defmodule Rushing.Helpers.Pagination do
   def apply_pagination(query, page, per_page) do
     sub = subquery(query)
 
-    result = where(sub, [e], e.row_number > ^(per_page * (page - 1)) and e.row_number <= ^(per_page * page))
-    |> Repo.all()
+    result =
+      where(
+        sub,
+        [e],
+        e.row_number > ^(per_page * (page - 1)) and e.row_number <= ^(per_page * page)
+      )
+      |> Repo.all()
 
     count = Repo.one(from e in sub, select: count("*"))
 

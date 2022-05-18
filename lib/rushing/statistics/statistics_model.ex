@@ -7,7 +7,7 @@ defmodule Rushing.Statistics.StatisticsModel do
   @castable_fields [
     :player_name,
     :player_team_abbreviation,
-    :player_postion,
+    :player_position,
     :rushing_attempts_per_game_average,
     :rushing_attempts,
     :total_rushing_yards,
@@ -26,7 +26,7 @@ defmodule Rushing.Statistics.StatisticsModel do
   schema "rushing_statistics" do
     field(:player_name, :string)
     field(:player_team_abbreviation, :string)
-    field(:player_postion, :string)
+    field(:player_position, :string)
     field(:rushing_attempts_per_game_average, :integer)
     field(:rushing_attempts, :float)
     field(:total_rushing_yards, :integer)
@@ -56,7 +56,7 @@ defmodule Rushing.Statistics.StatisticsModel do
     %{
       player_name: params["Player"],
       player_team_abbreviation: params["Team"],
-      player_postion: params["Pos"],
+      player_position: params["Pos"],
       rushing_attempts_per_game_average: params["Att"],
       rushing_attempts: params["Att/G"],
       total_rushing_yards: parse_yards(params["Yds"]),
@@ -90,6 +90,11 @@ defmodule Rushing.Statistics.StatisticsModel do
   defp parse_is_longest_run(run) when is_nil(run), do: false
   defp parse_is_longest_run(run) when is_integer(run), do: false
   defp parse_is_longest_run(run) when is_binary(run), do: run =~ "T"
+
+  def longest_rush(%{longest_rush: longest_rush, is_longest_rush_a_td: true}),
+    do: "#{longest_rush}T"
+
+  def longest_rush(%{longest_rush: longest_rush}), do: longest_rush
 
   defp parse_yards(yards) when is_nil(yards), do: 0
 

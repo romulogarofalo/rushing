@@ -34,7 +34,7 @@ defmodule Rushing.Statistics.Repository do
       %{
         player_name: s.player_name,
         player_team_abbreviation: s.player_team_abbreviation,
-        player_postion: s.player_postion,
+        player_position: s.player_position,
         rushing_attempts_per_game_average: s.rushing_attempts_per_game_average,
         rushing_attempts: s.rushing_attempts,
         total_rushing_yards: s.total_rushing_yards,

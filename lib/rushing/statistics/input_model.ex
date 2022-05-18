@@ -1,15 +1,14 @@
 defmodule Rushing.Statistics.InputModel do
-
   use Ecto.Schema
   import Ecto.Changeset
 
   @type t :: %__MODULE__{
-    page: integer(),
-    per_page: integer(),
-    name: String.t() | nil,
-    filter: String.t() | nil,
-    order: String.t() | nil
-  }
+          page: integer(),
+          per_page: integer(),
+          name: String.t() | nil,
+          filter: String.t() | nil,
+          order: String.t() | nil
+        }
 
   @primary_key false
   embedded_schema do
@@ -30,13 +29,12 @@ defmodule Rushing.Statistics.InputModel do
 
   @required_fields [
     :page,
-    :per_page,
+    :per_page
   ]
 
   def create_changeset(params) do
     %__MODULE__{}
     |> cast(params, @castable_fields)
     |> validate_required(@required_fields)
-    |> IO.inspect()
   end
 end
