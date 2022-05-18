@@ -33,21 +33,24 @@ defmodule RushingWeb.StatisticsControllerTest do
     end
 
     test "with rigth params but no filter", %{inserted_data: inserted_data, conn: conn} do
-
       %{resp_body: body_page_1} =
         get(conn, "/api/statistics/page/1/per_page/10", name: "", filter: "", order: "")
+
       %{resp_body: body_page_2} =
         get(conn, "/api/statistics/page/2/per_page/10", name: "", filter: "", order: "")
 
-      %{"result" => first_page_with_10} = Jason.decode!(body_page_1)
-      |> Jason.decode!()
+      %{"result" => first_page_with_10} =
+        Jason.decode!(body_page_1)
+        |> Jason.decode!()
 
-      %{"result" => second_page_with_6} = Jason.decode!(body_page_2)
-      |> Jason.decode!()
+      %{"result" => second_page_with_6} =
+        Jason.decode!(body_page_2)
+        |> Jason.decode!()
 
-      inserted_data_result = inserted_data
-      |> Jason.encode!()
-      |> Jason.decode!()
+      inserted_data_result =
+        inserted_data
+        |> Jason.encode!()
+        |> Jason.decode!()
 
       Enum.map(0..9, fn index ->
         from_page = Enum.at(first_page_with_10, index)
@@ -68,10 +71,10 @@ defmodule RushingWeb.StatisticsControllerTest do
       %{resp_body: body_page_1} =
         get(conn, "/api/statistics/page/1/per_page/10", name: "13", filter: "", order: "")
 
-      %{"result" => first_page_with_10}
-      = body_page_1
-      |> Jason.decode!()
-      |> Jason.decode!()
+      %{"result" => first_page_with_10} =
+        body_page_1
+        |> Jason.decode!()
+        |> Jason.decode!()
 
       [row] = first_page_with_10
 
@@ -105,12 +108,16 @@ defmodule RushingWeb.StatisticsControllerTest do
       end)
 
       %{resp_body: body_page_1} =
-        get(conn, "/api/statistics/page/1/per_page/13", name: "", filter: "total_rushing_yards", order: "asc")
+        get(conn, "/api/statistics/page/1/per_page/13",
+          name: "",
+          filter: "total_rushing_yards",
+          order: "asc"
+        )
 
-      %{"result" => first_page_with_10}
-      = body_page_1
-      |> Jason.decode!()
-      |> Jason.decode!()
+      %{"result" => first_page_with_10} =
+        body_page_1
+        |> Jason.decode!()
+        |> Jason.decode!()
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7]
 
@@ -120,12 +127,16 @@ defmodule RushingWeb.StatisticsControllerTest do
       end)
 
       %{resp_body: body_page_1_desc} =
-        get(conn, "/api/statistics/page/1/per_page/13", name: "", filter: "total_rushing_yards", order: "desc")
+        get(conn, "/api/statistics/page/1/per_page/13",
+          name: "",
+          filter: "total_rushing_yards",
+          order: "desc"
+        )
 
-      %{"result" => first_page_with_10_desc}
-      = body_page_1_desc
-      |> Jason.decode!()
-      |> Jason.decode!()
+      %{"result" => first_page_with_10_desc} =
+        body_page_1_desc
+        |> Jason.decode!()
+        |> Jason.decode!()
 
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 7, 7, 7]
 
@@ -161,12 +172,16 @@ defmodule RushingWeb.StatisticsControllerTest do
       end)
 
       %{resp_body: body_page_1} =
-        get(conn, "/api/statistics/page/1/per_page/13", name: "", filter: "longest_rush", order: "asc")
+        get(conn, "/api/statistics/page/1/per_page/13",
+          name: "",
+          filter: "longest_rush",
+          order: "asc"
+        )
 
-      %{"result" => first_page_with_10}
-      = body_page_1
-      |> Jason.decode!()
-      |> Jason.decode!()
+      %{"result" => first_page_with_10} =
+        body_page_1
+        |> Jason.decode!()
+        |> Jason.decode!()
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7]
 
@@ -176,12 +191,16 @@ defmodule RushingWeb.StatisticsControllerTest do
       end)
 
       %{resp_body: body_page_1_desc} =
-        get(conn, "/api/statistics/page/1/per_page/13", name: "", filter: "longest_rush", order: "desc")
+        get(conn, "/api/statistics/page/1/per_page/13",
+          name: "",
+          filter: "longest_rush",
+          order: "desc"
+        )
 
-      %{"result" => first_page_with_10_desc}
-      = body_page_1_desc
-      |> Jason.decode!()
-      |> Jason.decode!()
+      %{"result" => first_page_with_10_desc} =
+        body_page_1_desc
+        |> Jason.decode!()
+        |> Jason.decode!()
 
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 7, 7, 7]
 
@@ -217,12 +236,16 @@ defmodule RushingWeb.StatisticsControllerTest do
       end)
 
       %{resp_body: body_page_1} =
-        get(conn, "/api/statistics/page/1/per_page/13", name: "", filter: "total_rushing_touchdowns", order: "asc")
+        get(conn, "/api/statistics/page/1/per_page/13",
+          name: "",
+          filter: "total_rushing_touchdowns",
+          order: "asc"
+        )
 
-      %{"result" => first_page_with_10}
-      = body_page_1
-      |> Jason.decode!()
-      |> Jason.decode!()
+      %{"result" => first_page_with_10} =
+        body_page_1
+        |> Jason.decode!()
+        |> Jason.decode!()
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6]
 
@@ -232,12 +255,16 @@ defmodule RushingWeb.StatisticsControllerTest do
       end)
 
       %{resp_body: body_page_1_desc} =
-        get(conn, "/api/statistics/page/1/per_page/13", name: "", filter: "total_rushing_touchdowns", order: "desc")
+        get(conn, "/api/statistics/page/1/per_page/13",
+          name: "",
+          filter: "total_rushing_touchdowns",
+          order: "desc"
+        )
 
-      %{"result" => first_page_with_10_desc}
-      = body_page_1_desc
-      |> Jason.decode!()
-      |> Jason.decode!()
+      %{"result" => first_page_with_10_desc} =
+        body_page_1_desc
+        |> Jason.decode!()
+        |> Jason.decode!()
 
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 6, 6]
 

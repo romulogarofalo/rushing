@@ -11,7 +11,9 @@ defmodule RushingWeb.StatisticsController do
       filter = Map.get(changes, :filter)
       order = Map.get(changes, :order)
 
-      render(conn, "show.json", data: Statistics.list_statistics_paginated(changes, name, filter, order))
+      render(conn, "show.json",
+        data: Statistics.list_statistics_paginated(changes, name, filter, order)
+      )
     else
       {:error, reason = %Ecto.ChangeError{}} ->
         render(conn, "changeset_error", reason)
@@ -19,11 +21,14 @@ defmodule RushingWeb.StatisticsController do
   end
 
   def download(conn, params) do
-    params_with_page = Map.merge(params,
-    %{
-      "page" => 1,
-      "per_page" => 10
-    })
+    params_with_page =
+      Map.merge(
+        params,
+        %{
+          "page" => 1,
+          "per_page" => 10
+        }
+      )
 
     %{changes: changes} = InputModel.create_changeset(params_with_page)
     name = Map.get(changes, :name)
