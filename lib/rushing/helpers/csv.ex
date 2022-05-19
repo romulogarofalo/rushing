@@ -1,4 +1,8 @@
 defmodule Rushing.Helpers.Csv do
+  @moduledoc """
+  module to make download of csv filtered
+  """
+
   alias Rushing.Statistics
   alias Rushing.Statistics.StatisticsModel
   alias Rushing.Repo
@@ -21,6 +25,12 @@ defmodule Rushing.Helpers.Csv do
     "FUM"
   ]
 
+  @spec download(
+    String.t() | nil,
+    String.t() | nil,
+    String.t() | nil,
+    Plug.Conn.t()
+    ) :: {:ok, Plug.Conn.t()}
   def download(name, field, order, conn) do
     Repo.transaction(
       fn ->
@@ -29,18 +39,22 @@ defmodule Rushing.Helpers.Csv do
         |> Stream.map(&build_line/1)
         |> then(fn stream -> Stream.concat([@first_line], stream) end)
         |> NimbleCSV.RFC4180.dump_to_stream()
-        |> Enum.reduce_while(conn, fn data, conn ->
-          case Plug.Conn.chunk(conn, data) do
-            {:ok, conn} ->
-              {:cont, conn}
-
-            {:error, :closed} ->
-              {:halt, conn}
-          end
-        end)
+        |> continue_connection(conn)
       end,
       timeout: :infinity
     )
+  end
+
+  defp continue_connection(stream, conn) do
+    Enum.reduce_while(stream, conn, fn data, conn ->
+      case Plug.Conn.chunk(conn, data) do
+        {:ok, conn} ->
+          {:cont, conn}
+
+        {:error, :closed} ->
+          {:halt, conn}
+      end
+    end)
   end
 
   defp build_line(rushing_statistic) do
