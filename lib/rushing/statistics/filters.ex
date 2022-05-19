@@ -2,29 +2,31 @@ defmodule Rushing.Statistics.Repository do
   import Ecto.Query
 
   alias Rushing.Statistics.StatisticsModel
+
+  @spec add_filter(Ecto.Query.t(), atom() | nil, atom() | String.t() | nil) :: Ecto.Query.t()
   def add_filter(query, nil, nil), do: query
   def add_filter(query, nil, _), do: query
-  def add_filter(query, "name", nil), do: query
+  def add_filter(query, :name, nil), do: query
 
-  def add_filter(query, "name", value),
+  def add_filter(query, :name, value),
     do: from(u in query, where: like(u.player_name, ^"%#{value}%"))
 
-  def add_filter(query, "total_rushing_yards", "desc"),
+  def add_filter(query, :total_rushing_yards, :desc),
     do: from(u in query, order_by: [desc: u.total_rushing_yards])
 
-  def add_filter(query, "total_rushing_yards", "asc"),
+  def add_filter(query, :total_rushing_yards, :asc),
     do: from(u in query, order_by: [asc: u.total_rushing_yards])
 
-  def add_filter(query, "longest_rush", "desc"),
+  def add_filter(query, :longest_rush, :desc),
     do: from(u in query, order_by: [desc: u.longest_rush])
 
-  def add_filter(query, "longest_rush", "asc"),
+  def add_filter(query, :longest_rush, :asc),
     do: from(u in query, order_by: [asc: u.longest_rush])
 
-  def add_filter(query, "total_rushing_touchdowns", "desc"),
+  def add_filter(query, :total_rushing_touchdowns, :desc),
     do: from(u in query, order_by: [desc: u.total_rushing_touchdowns])
 
-  def add_filter(query, "total_rushing_touchdowns", "asc"),
+  def add_filter(query, :total_rushing_touchdowns, :asc),
     do: from(u in query, order_by: [asc: u.total_rushing_touchdowns])
 
   def row_number_statistics(field, order) do
@@ -54,27 +56,27 @@ defmodule Rushing.Statistics.Repository do
     |> windows(get_field_to_order: [order_by: ^get_field_to_order(field, order)])
   end
 
-  def get_field_to_order("total_rushing_yards", "desc") do
+  def get_field_to_order(:total_rushing_yards, :desc) do
     [desc: dynamic([r], r.total_rushing_yards)]
   end
 
-  def get_field_to_order("total_rushing_yards", "asc") do
+  def get_field_to_order(:total_rushing_yards, :asc) do
     [asc: dynamic([r], r.total_rushing_yards)]
   end
 
-  def get_field_to_order("longest_rush", "desc") do
+  def get_field_to_order(:longest_rush, :desc) do
     [desc: dynamic([r], r.longest_rush)]
   end
 
-  def get_field_to_order("longest_rush", "asc") do
+  def get_field_to_order(:longest_rush, :asc) do
     [asc: dynamic([r], r.longest_rush)]
   end
 
-  def get_field_to_order("total_rushing_touchdowns", "desc") do
+  def get_field_to_order(:total_rushing_touchdowns, :desc) do
     [desc: dynamic([r], r.total_rushing_touchdowns)]
   end
 
-  def get_field_to_order("total_rushing_touchdowns", "asc") do
+  def get_field_to_order(:total_rushing_touchdowns, :asc) do
     [asc: dynamic([r], r.total_rushing_touchdowns)]
   end
 

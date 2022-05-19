@@ -93,8 +93,8 @@ defmodule Rushing.StatisticsTest do
         Statistics.list_statistics_paginated(
           %{page: 1, per_page: 13},
           nil,
-          "total_rushing_yards",
-          "asc"
+          :total_rushing_yards,
+          :asc
         )
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7]
@@ -108,8 +108,8 @@ defmodule Rushing.StatisticsTest do
         Statistics.list_statistics_paginated(
           %{page: 1, per_page: 13},
           nil,
-          "total_rushing_yards",
-          "desc"
+          :total_rushing_yards,
+          :desc
         )
 
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 7, 7, 7]
@@ -144,7 +144,7 @@ defmodule Rushing.StatisticsTest do
       end)
 
       %{result: result} =
-        Statistics.list_statistics_paginated(%{page: 1, per_page: 13}, nil, "longest_rush", "asc")
+        Statistics.list_statistics_paginated(%{page: 1, per_page: 13}, nil, :longest_rush, :asc)
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7]
 
@@ -157,8 +157,8 @@ defmodule Rushing.StatisticsTest do
         Statistics.list_statistics_paginated(
           %{page: 1, per_page: 13},
           nil,
-          "longest_rush",
-          "desc"
+          :longest_rush,
+          :desc
         )
 
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 7, 7, 7]
@@ -196,8 +196,8 @@ defmodule Rushing.StatisticsTest do
         Statistics.list_statistics_paginated(
           %{page: 1, per_page: 13},
           nil,
-          "total_rushing_touchdowns",
-          "asc"
+          :total_rushing_touchdowns,
+          :asc
         )
 
       list_to_test1 = [0, 1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6]
@@ -211,8 +211,8 @@ defmodule Rushing.StatisticsTest do
         Statistics.list_statistics_paginated(
           %{page: 1, per_page: 13},
           nil,
-          "total_rushing_touchdowns",
-          "desc"
+          :total_rushing_touchdowns,
+          :desc
         )
 
       list_to_test2 = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 6, 6]

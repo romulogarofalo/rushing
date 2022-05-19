@@ -15,8 +15,12 @@ defmodule Rushing.Statistics.InputModel do
     field(:page, :integer)
     field(:per_page, :integer)
     field(:name, :string)
-    field(:filter, :string)
-    field(:order, :string)
+
+    field(:filter, Ecto.Enum,
+      values: [:total_rushing_yards, :longest_rush, :total_rushing_touchdowns]
+    )
+
+    field(:order, Ecto.Enum, values: [:asc, :desc])
   end
 
   @castable_fields [
@@ -36,5 +40,6 @@ defmodule Rushing.Statistics.InputModel do
     %__MODULE__{}
     |> cast(params, @castable_fields)
     |> validate_required(@required_fields)
+    |> apply_action(:validate)
   end
 end

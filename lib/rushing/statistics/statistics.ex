@@ -11,7 +11,7 @@ defmodule Rushing.Statistics do
   def list_statistics(field, name, order) do
     field
     |> Repository.row_number_statistics(order)
-    |> Repository.add_filter("name", name)
+    |> Repository.add_filter(:name, name)
     |> Repository.add_filter(field, order)
   end
 end

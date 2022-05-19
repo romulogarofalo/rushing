@@ -6,17 +6,18 @@ defmodule RushingWeb.StatisticsController do
   alias Rushing.Helpers.Csv
 
   def index(conn, params) do
-    with %{changes: changes} <- InputModel.create_changeset(params) do
-      name = Map.get(changes, :name)
-      filter = Map.get(changes, :filter)
-      order = Map.get(changes, :order)
+    case InputModel.create_changeset(params) do
+      {:ok, %InputModel{} = changes} ->
+        name = Map.get(changes, :name)
+        filter = Map.get(changes, :filter)
+        order = Map.get(changes, :order)
 
-      render(conn, "show.json",
-        data: Statistics.list_statistics_paginated(changes, name, filter, order)
-      )
-    else
-      {:error, reason = %Ecto.ChangeError{}} ->
-        render(conn, "changeset_error", reason)
+        render(conn, "show.json",
+          data: Statistics.list_statistics_paginated(changes, name, filter, order)
+        )
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "changeset_error", changeset.errors)
     end
   end
 
@@ -30,7 +31,7 @@ defmodule RushingWeb.StatisticsController do
         }
       )
 
-    %{changes: changes} = InputModel.create_changeset(params_with_page)
+    {:ok, %{changes: changes}} = InputModel.create_changeset(params_with_page)
     name = Map.get(changes, :name)
     filter = Map.get(changes, :filter)
     order = Map.get(changes, :order)
