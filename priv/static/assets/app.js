@@ -71,20 +71,14 @@ const get_filters = () => {
       case "asc":
         localStorage.setItem("filter", fitler);
         localStorage.setItem("order", "desc");
-        element.classList.remove("asc");
-        element.classList.add("desc");
         break;
       case "":
         localStorage.setItem("filter", fitler);
         localStorage.setItem("order", "asc");
-        element.classList.remove("desc");
-        element.classList.add("asc");
         break;
       case "desc":
         localStorage.setItem("filter", "");
         localStorage.setItem("order", "");
-        element.classList.remove("desc");
-        element.classList.remove("asc");
         break;
     }
   }
