@@ -54,4 +54,44 @@ We will evaluate you on your ability to solve the problem defined in the require
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
 ### Installation and running this solution
-... TODO
+
+To get started, you should install **Docker** and **Docker Compose**.
+or to run localy, you should install **Elixir** with **ASDF**
+Then, clone the repository:
+```sh
+$ git clone https://github.com/romulogarofalo/api-banking.git
+```
+You should run 
+```
+asdf install
+```
+to install elixir and erlang version
+
+```
+mix deps.get
+```
+to install all the dependencies
+# Running Locally
+To run locally, simply run the following command:
+```sh
+$ mix phx.server
+```
+# Running Tests
+To run the tests, run the following command:
+```sh
+$ mix test
+```
+# Running on docker
+To run the application on docker we need to change the ``` hostname: "db"``` in our `config/dev.ex` after that we can build
+```sh
+$ docker-compose build
+```
+now we can run our docker
+```sh
+$ docker-compose up
+```
+
+## Useful Links
+[Linter used (credo)](https://github.com/rrrene/credo)  
+[commit pattern used](https://gitmoji.carloscuesta.me/)
+
