@@ -3,9 +3,9 @@ defmodule Rushing.Helpers.Csv do
   module to make download of csv filtered
   """
 
+  alias Rushing.Repo
   alias Rushing.Statistics
   alias Rushing.Statistics.StatisticsModel
-  alias Rushing.Repo
 
   @first_line [
     "Player",

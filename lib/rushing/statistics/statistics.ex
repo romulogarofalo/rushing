@@ -3,8 +3,8 @@ defmodule Rushing.Statistics do
   module responsable for business part
   """
 
-  alias Rushing.Statistics.Repository
   alias Rushing.Helpers.Pagination
+  alias Rushing.Statistics.Repository
 
   def list_statistics_paginated(%{page: page, per_page: per_page}, name, field, order) do
     field

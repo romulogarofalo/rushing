@@ -2,8 +2,8 @@ defmodule Rushing.Statistics.StatisticsModelTest do
   use ExUnit.Case
   use Rushing.DataCase
 
-  alias Rushing.Statistics.StatisticsModel
   alias Rushing.Repo
+  alias Rushing.Statistics.StatisticsModel
 
   describe "create_changeset/1" do
     test "with rigth params" do

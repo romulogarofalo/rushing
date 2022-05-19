@@ -1,9 +1,9 @@
 defmodule RushingWeb.StatisticsController do
   use RushingWeb, :controller
 
+  alias Rushing.Helpers.Csv
   alias Rushing.Statistics
   alias Rushing.Statistics.InputModel
-  alias Rushing.Helpers.Csv
 
   def index(conn, params) do
     case InputModel.create_changeset(params) do

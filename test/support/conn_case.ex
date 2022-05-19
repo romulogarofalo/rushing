@@ -16,6 +16,7 @@ defmodule RushingWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  alias Ecto.Adapters.SQL.Sandbox
 
   using do
     quote do
@@ -24,16 +25,16 @@ defmodule RushingWeb.ConnCase do
       import Phoenix.ConnTest
       import RushingWeb.ConnCase
 
-      alias RushingWeb.Router.Helpers, as: Routes
       alias Rushing.Repo
+      alias RushingWeb.Router.Helpers, as: Routes
       # The default endpoint for testing
       @endpoint RushingWeb.Endpoint
     end
   end
 
   setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Rushing.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+    pid = Sandbox.start_owner!(Rushing.Repo, shared: not tags[:async])
+    on_exit(fn -> Sandbox.stop_owner(pid) end)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
