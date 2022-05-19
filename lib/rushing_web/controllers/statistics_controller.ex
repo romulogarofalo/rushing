@@ -31,7 +31,7 @@ defmodule RushingWeb.StatisticsController do
         }
       )
 
-    {:ok, %{changes: changes}} = InputModel.create_changeset(params_with_page)
+    {:ok, %InputModel{} = changes} = InputModel.create_changeset(params_with_page)
     name = Map.get(changes, :name)
     filter = Map.get(changes, :filter)
     order = Map.get(changes, :order)
