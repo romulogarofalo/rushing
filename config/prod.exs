@@ -14,8 +14,7 @@ config :rushing, RushingWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   server: true,
   secret_key_base: "${SECRET_KEY_BASE}",
-  url: [host: "${APP_NAME}.gigalixirapp.com", port: 443],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "${APP_NAME}.gigalixirapp.com", port: 443]
 
 # Do not print debug messages in production
 config :logger, level: :info
