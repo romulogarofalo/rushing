@@ -1,4 +1,8 @@
 defmodule Rushing.Helpers.Pagination do
+  @moduledoc """
+  module responsable for pagination
+  """
+
   import Ecto.Query
 
   alias Rushing.Repo
@@ -13,6 +17,10 @@ defmodule Rushing.Helpers.Pagination do
     :has_prev
   ]
 
+  @doc """
+  To use this pagination you will need to pass row number in select fields
+  """
+  @spec apply_pagination(Ecto.Query.t(), integer(), integer()) :: %__MODULE__{}
   def apply_pagination(query, page, per_page) do
     sub = subquery(query)
 

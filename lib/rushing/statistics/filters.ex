@@ -1,4 +1,9 @@
 defmodule Rushing.Statistics.Repository do
+  @moduledoc """
+  module responsable to build the querys
+  these querys was based in https://use-the-index-luke.com/
+  """
+
   import Ecto.Query
 
   alias Rushing.Statistics.StatisticsModel
@@ -28,7 +33,6 @@ defmodule Rushing.Statistics.Repository do
 
   def add_filter(query, :total_rushing_touchdowns, :asc),
     do: from(u in query, order_by: [asc: u.total_rushing_touchdowns])
-
 
   @doc """
   paginated with row number becuase there is a lot of problems with offsets

@@ -1,4 +1,8 @@
 defmodule Rushing.Statistics do
+  @moduledoc """
+  module responsable for business part
+  """
+
   alias Rushing.Statistics.Repository
   alias Rushing.Helpers.Pagination
 

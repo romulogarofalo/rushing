@@ -26,11 +26,11 @@ defmodule Rushing.Helpers.Csv do
   ]
 
   @spec download(
-    String.t() | nil,
-    String.t() | nil,
-    String.t() | nil,
-    Plug.Conn.t()
-    ) :: {:ok, Plug.Conn.t()}
+          String.t() | nil,
+          String.t() | nil,
+          String.t() | nil,
+          Plug.Conn.t()
+        ) :: {:ok, Plug.Conn.t()}
   def download(name, field, order, conn) do
     Repo.transaction(
       fn ->

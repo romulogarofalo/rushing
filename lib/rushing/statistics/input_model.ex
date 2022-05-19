@@ -1,4 +1,8 @@
 defmodule Rushing.Statistics.InputModel do
+  @moduledoc """
+  module responsable for validate client input
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 
