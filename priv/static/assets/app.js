@@ -94,7 +94,7 @@ const get_filters = () => {
   const send_request = (current_page, per_page) => {
     const {name, filter, order} = get_filters()
 
-    const url = `http://localhost:4000/api/statistics/page/${current_page}/per_page/${per_page}?` + new URLSearchParams({
+    const url = `https://rushing.gigalixirapp.com/api/statistics/page/${current_page}/per_page/${per_page}?` + new URLSearchParams({
       name: name,
       filter: filter,
       order: order
@@ -117,7 +117,7 @@ const get_filters = () => {
   const download = () => {
     const {name, filter, order} = get_filters()
 
-    const url = `http://localhost:4000/api/statistics/download?` + new URLSearchParams({
+    const url = `https://rushing.gigalixirapp.com/api/statistics/download?` + new URLSearchParams({
       name: name,
       filter: filter,
       order: order
