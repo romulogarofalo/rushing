@@ -1,4 +1,9 @@
 defmodule Rushing.Statistics.StatisticsModel do
+  @moduledoc """
+  Model responsable to insert new rushing statistics
+  from json seeds file
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 
