@@ -274,8 +274,8 @@ defmodule RushingWeb.StatisticsControllerTest do
       end)
     end
 
-    test "with all filters", %{inserted_data: inserted_data, conn: conn} do
-    end
+    # test "with all filters", %{inserted_data: inserted_data, conn: conn} do
+    # end
 
     # test "with wrong params", %{inserted_data: inserted_data, conn: conn} do
     # end
