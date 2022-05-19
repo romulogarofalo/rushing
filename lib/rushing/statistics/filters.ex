@@ -29,6 +29,15 @@ defmodule Rushing.Statistics.Repository do
   def add_filter(query, :total_rushing_touchdowns, :asc),
     do: from(u in query, order_by: [asc: u.total_rushing_touchdowns])
 
+
+  @doc """
+  paginated with row number becuase there is a lot of problems with offsets
+  read more in https://use-the-index-luke.com/no-offset
+  """
+  @spec row_number_statistics(
+          :longest_rush | nil | :total_rushing_touchdowns | :total_rushing_yards,
+          :asc | :desc | nil
+        ) :: Ecto.Query.t()
   def row_number_statistics(field, order) do
     StatisticsModel
     |> select(
