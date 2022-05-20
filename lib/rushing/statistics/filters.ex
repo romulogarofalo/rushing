@@ -1,4 +1,4 @@
-defmodule Rushing.Statistics.Repository do
+defmodule Rushing.Statistics.Filter do
   @moduledoc """
   module responsable to build the querys
   these querys was based in https://use-the-index-luke.com/
@@ -8,41 +8,44 @@ defmodule Rushing.Statistics.Repository do
 
   alias Rushing.Statistics.StatisticsModel
 
-  @spec add_filter(Ecto.Query.t(), atom() | nil, atom() | String.t() | nil) :: Ecto.Query.t()
-  def add_filter(query, nil, nil), do: query
-  def add_filter(query, nil, _), do: query
-  def add_filter(query, :name, nil), do: query
+  def build_query_with_filters(field, name, order) do
+    field
+    |> row_number_statistics(order)
+    |> add_filter(:name, name)
+    |> add_filter(field, order)
+  end
 
-  def add_filter(query, :name, value),
+  @spec add_filter(Ecto.Query.t(), atom() | nil, atom() | String.t() | nil) :: Ecto.Query.t()
+  defp add_filter(query, nil, nil), do: query
+  defp add_filter(query, nil, _), do: query
+  defp add_filter(query, :name, nil), do: query
+
+  defp add_filter(query, :name, value),
     do: from(u in query, where: like(u.player_name, ^"%#{value}%"))
 
-  def add_filter(query, :total_rushing_yards, :desc),
+  defp add_filter(query, :total_rushing_yards, :desc),
     do: from(u in query, order_by: [desc: u.total_rushing_yards])
 
-  def add_filter(query, :total_rushing_yards, :asc),
+  defp add_filter(query, :total_rushing_yards, :asc),
     do: from(u in query, order_by: [asc: u.total_rushing_yards])
 
-  def add_filter(query, :longest_rush, :desc),
+  defp add_filter(query, :longest_rush, :desc),
     do: from(u in query, order_by: [desc: u.longest_rush])
 
-  def add_filter(query, :longest_rush, :asc),
+  defp add_filter(query, :longest_rush, :asc),
     do: from(u in query, order_by: [asc: u.longest_rush])
 
-  def add_filter(query, :total_rushing_touchdowns, :desc),
+  defp add_filter(query, :total_rushing_touchdowns, :desc),
     do: from(u in query, order_by: [desc: u.total_rushing_touchdowns])
 
-  def add_filter(query, :total_rushing_touchdowns, :asc),
+  defp add_filter(query, :total_rushing_touchdowns, :asc),
     do: from(u in query, order_by: [asc: u.total_rushing_touchdowns])
 
-  @doc """
-  paginated with row number becuase there is a lot of problems with offsets
-  read more in https://use-the-index-luke.com/no-offset
-  """
   @spec row_number_statistics(
           :longest_rush | nil | :total_rushing_touchdowns | :total_rushing_yards,
           :asc | :desc | nil
         ) :: Ecto.Query.t()
-  def row_number_statistics(field, order) do
+  defp row_number_statistics(field, order) do
     StatisticsModel
     |> select(
       [s],
@@ -69,31 +72,31 @@ defmodule Rushing.Statistics.Repository do
     |> windows(get_field_to_order: [order_by: ^get_field_to_order(field, order)])
   end
 
-  def get_field_to_order(:total_rushing_yards, :desc) do
+  defp get_field_to_order(:total_rushing_yards, :desc) do
     [desc: dynamic([r], r.total_rushing_yards)]
   end
 
-  def get_field_to_order(:total_rushing_yards, :asc) do
+  defp get_field_to_order(:total_rushing_yards, :asc) do
     [asc: dynamic([r], r.total_rushing_yards)]
   end
 
-  def get_field_to_order(:longest_rush, :desc) do
+  defp get_field_to_order(:longest_rush, :desc) do
     [desc: dynamic([r], r.longest_rush)]
   end
 
-  def get_field_to_order(:longest_rush, :asc) do
+  defp get_field_to_order(:longest_rush, :asc) do
     [asc: dynamic([r], r.longest_rush)]
   end
 
-  def get_field_to_order(:total_rushing_touchdowns, :desc) do
+  defp get_field_to_order(:total_rushing_touchdowns, :desc) do
     [desc: dynamic([r], r.total_rushing_touchdowns)]
   end
 
-  def get_field_to_order(:total_rushing_touchdowns, :asc) do
+  defp get_field_to_order(:total_rushing_touchdowns, :asc) do
     [asc: dynamic([r], r.total_rushing_touchdowns)]
   end
 
-  def get_field_to_order(nil, nil) do
+  defp get_field_to_order(nil, nil) do
     [desc: dynamic([r], r.total_rushing_yards)]
   end
 end

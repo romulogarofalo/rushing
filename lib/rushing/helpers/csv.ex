@@ -4,7 +4,7 @@ defmodule Rushing.Helpers.Csv do
   """
 
   alias Rushing.Repo
-  alias Rushing.Statistics
+  alias Rushing.Statistics.Filter
   alias Rushing.Statistics.StatisticsModel
 
   @first_line [
@@ -34,7 +34,7 @@ defmodule Rushing.Helpers.Csv do
   def download(name, field, order, conn) do
     Repo.transaction(
       fn ->
-        Statistics.list_statistics(field, name, order)
+        Filter.build_query_with_filters(field, name, order)
         |> Repo.stream()
         |> Stream.map(&build_line/1)
         |> then(fn stream -> Stream.concat([@first_line], stream) end)

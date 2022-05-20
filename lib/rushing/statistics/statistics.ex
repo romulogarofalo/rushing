@@ -4,18 +4,11 @@ defmodule Rushing.Statistics do
   """
 
   alias Rushing.Helpers.Pagination
-  alias Rushing.Statistics.Repository
+  alias Rushing.Statistics.Filter
 
   def list_statistics_paginated(%{page: page, per_page: per_page}, name, field, order) do
     field
-    |> list_statistics(name, order)
+    |> Filter.build_query_with_filters(name, order)
     |> Pagination.apply_pagination(page, per_page)
-  end
-
-  def list_statistics(field, name, order) do
-    field
-    |> Repository.row_number_statistics(order)
-    |> Repository.add_filter(:name, name)
-    |> Repository.add_filter(field, order)
   end
 end
