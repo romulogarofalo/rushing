@@ -192,6 +192,7 @@ const get_filters = () => {
       <th scope='col'><div class='text-truncate'>rushing_yards_per_game</div></th>\
       <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_td()' id='sort_total_rushing_td' value=''>total_rushing_touchdowns</div></th>\
       <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_longest_rush()' id='sort_longest_rush' value=''>longest_rush</div></th>\
+      <th scope='col'><div class='text-truncate'>is_longest_rush</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_first_downs</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_first_down_percentage</div></th>\
       <th scope='col'><div class='text-truncate'>rushing_more_than_twenty_yards</div></th>\
@@ -244,6 +245,10 @@ const get_filters = () => {
         longest_rush = document.createElement("td")
         longest_rush.textContent = element.longest_rush
         line.appendChild(longest_rush)
+        
+        is_longest_rush_a_td = document.createElement("td")
+        is_longest_rush_a_td.textContent = element.is_longest_rush_a_td == true ? "X" : " "
+        line.appendChild(is_longest_rush_a_td)
   
         rushing_first_downs = document.createElement("td")
         rushing_first_downs.textContent = element.rushing_first_downs
