@@ -182,22 +182,22 @@ const get_filters = () => {
     // TODO: deixar com nome apreviado que deram
     // TODO: colocar onhover para mostrar nome todo
     table_header.innerHTML = "<tr>\
-      <th scope='col'><div class='text-truncate'>player_name</div></th>\
-      <th scope='col'><div class='text-truncate'>player_team_abbreviation</div></th>\
-      <th scope='col'><div class='text-truncate'>player_position</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_attempts_per_game_average</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_attempts</div></th>\
-      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_yards()' id='sort_total_rushing_yards' value=''>total_rushing_yards</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_average_yards_per_attempt</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_yards_per_game</div></th>\
-      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_td()' id='sort_total_rushing_td' value=''>total_rushing_touchdowns</div></th>\
-      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_longest_rush()' id='sort_longest_rush' value=''>longest_rush</div></th>\
-      <th scope='col'><div class='text-truncate'>is_longest_rush</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_first_downs</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_first_down_percentage</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_more_than_twenty_yards</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_more_than_forty_yards</div></th>\
-      <th scope='col'><div class='text-truncate'>rushing_fumbles</div></th>\
+      <th scope='col'><div class='text-truncate'>Player</div></th>\
+      <th scope='col'><div class='text-truncate'>Team</div></th>\
+      <th scope='col'><div class='text-truncate'>Pos</div></th>\
+      <th scope='col'><div class='text-truncate'>Att</div></th>\
+      <th scope='col'><div class='text-truncate'>Att/G</div></th>\
+      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_yards()' id='sort_total_rushing_yards' value=''>Yds</div></th>\
+      <th scope='col'><div class='text-truncate'>Avg</div></th>\
+      <th scope='col'><div class='text-truncate'>Yds/G</div></th>\
+      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_total_rushing_td()' id='sort_total_rushing_td' value=''>TD</div></th>\
+      <th scope='col' class='clickable'><div class='text-truncate' onclick='sort_longest_rush()' id='sort_longest_rush' value=''>Lng</div></th>\
+      <th scope='col'><div class='text-truncate'>Lng w/ TD</div></th>\
+      <th scope='col'><div class='text-truncate'>1st</div></th>\
+      <th scope='col'><div class='text-truncate'>1st%</div></th>\
+      <th scope='col'><div class='text-truncate'>20+</div></th>\
+      <th scope='col'><div class='text-truncate'>40+</div></th>\
+      <th scope='col'><div class='text-truncate'>FUM</div></th>\
     </tr>"
   
     fragment.appendChild(table_header)

@@ -71,7 +71,7 @@ defmodule Rushing.Statistics.StatisticsModel do
       longest_rush: parse_longest_run(params["Lng"]),
       is_longest_rush_a_td: parse_is_longest_run(params["Lng"]),
       rushing_first_downs: params["1st"],
-      rushing_first_down_percentage: params["1st"],
+      rushing_first_down_percentage: params["1st%"],
       rushing_more_than_twenty_yards: params["20+"],
       rushing_more_than_forty_yards: params["40+"],
       rushing_fumbles: params["FUM"]
