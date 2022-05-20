@@ -1,9 +1,9 @@
 defmodule Rushing.Statistics.FilterTest do
-	use ExUnit.Case
+  use ExUnit.Case
   use Rushing.DataCase
 
-	alias Rushing.Statistics.Filter
-	alias Rushing.Statistics.StatisticsModel
+  alias Rushing.Statistics.Filter
+  alias Rushing.Statistics.StatisticsModel
 
   describe "build_query_with_filters/3" do
     setup do
@@ -44,8 +44,7 @@ defmodule Rushing.Statistics.FilterTest do
     end
 
     test "with rigth params with name filter" do
-      result =
-        Filter.build_query_with_filters(nil, "13", nil) |> Repo.all()
+      result = Filter.build_query_with_filters(nil, "13", nil) |> Repo.all()
 
       [player_13] = result
       assert player_13.player_name == "13"
