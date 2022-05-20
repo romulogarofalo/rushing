@@ -59,7 +59,7 @@ defmodule Rushing.Statistics.StatisticsModel do
 
   defp parse_params(params) do
     %{
-      player_name: String.downcase(params["Player"]),
+      player_name: name_downcase(params["Player"]),
       player_team_abbreviation: params["Team"],
       player_position: params["Pos"],
       rushing_attempts_per_game_average: params["Att"],
@@ -77,6 +77,9 @@ defmodule Rushing.Statistics.StatisticsModel do
       rushing_fumbles: params["FUM"]
     }
   end
+
+  defp name_downcase(name) when is_binary(name), do: String.downcase(name)
+  defp name_downcase(name), do: name
 
   defp parse_longest_run(run) when is_nil(run), do: 0
   defp parse_longest_run(run) when is_integer(run), do: run

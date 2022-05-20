@@ -30,7 +30,7 @@ defmodule Rushing.Statistics.StatisticsModelTest do
                %StatisticsModel{
                  is_longest_rush_a_td: false,
                  longest_rush: 7,
-                 player_name: "Joe Banyard",
+                 player_name: "joe banyard",
                  player_position: "RB",
                  player_team_abbreviation: "JAX",
                  rushing_attempts: 2.0,
