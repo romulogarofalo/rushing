@@ -105,7 +105,7 @@ $ mix test
 
 ## App online
 
-you can test the application on this address `https://rushing.gigalixirapp.com/`
+you can test the application on this address <https://rushing.gigalixirapp.com/>
 
 ## Useful Links
 [Linter used (credo)](https://github.com/rrrene/credo)  
