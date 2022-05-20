@@ -61,26 +61,33 @@ Then, clone the repository:
 ```sh
 $ git clone https://github.com/romulogarofalo/api-banking.git
 ```
-You should run 
-```
-asdf install
-```
-to install elixir and erlang version
 
+Enter in the folder
+```sh
+$ cd rushing
 ```
-mix deps.get
-```
-to install all the dependencies
 # Running Locally
+
+You should run to install elixir and erlang version
+```sh
+$ asdf install
+```
+
+Install all the dependencies
+```sh
+$ mix deps.get
+```
+
+seed the database
+```sh
+$ mix run priv/rushing.json
+```
+
 To run locally, simply run the following command:
 ```sh
 $ mix phx.server
 ```
-# Running Tests
-To run the tests, run the following command:
-```sh
-$ mix test
-```
+
 # Running on docker
 To run the application on docker we need to change the ``` hostname: "db"``` in our `config/dev.ex` after that we can build
 ```sh
@@ -90,6 +97,15 @@ now we can run our docker
 ```sh
 $ docker-compose up
 ```
+# Running Tests
+To run the tests, run the following command:
+```sh
+$ mix test
+```
+
+## App online
+
+you can test the application on this address `https://rushing.gigalixirapp.com/`
 
 ## Useful Links
 [Linter used (credo)](https://github.com/rrrene/credo)  
