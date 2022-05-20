@@ -59,7 +59,7 @@ defmodule Rushing.Statistics.StatisticsModel do
 
   defp parse_params(params) do
     %{
-      player_name: params["Player"],
+      player_name: String.downcase(params["Player"]),
       player_team_abbreviation: params["Team"],
       player_position: params["Pos"],
       rushing_attempts_per_game_average: params["Att"],

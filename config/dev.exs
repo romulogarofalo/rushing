@@ -5,10 +5,13 @@ config :rushing, Rushing.Repo,
   username: "postgres",
   password: "postgres",
   database: "rushing_dev",
-  hostname: "db",
+  hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+
+config :rushing,
+  base_url: "http://localhost:4000"
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

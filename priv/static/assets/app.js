@@ -164,6 +164,16 @@ const get_filters = () => {
     paginator.replaceChildren(list_pages)
   }
   
+  const capitalize = (str) => 
+  {
+    const arr = str.split(" ");
+    for (var i = 0; i < arr.length; i++) {
+      arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    }
+
+    return arr.join(" ");
+  }
+
   const build_table = (body) => {
     const fragment = document.createDocumentFragment()
     const table = document.getElementById("rush")
@@ -196,7 +206,7 @@ const get_filters = () => {
         
         // TODO: trocar tudo isso por um looping na order certa de render
         player_name = document.createElement("td")
-        player_name.textContent = element.player_name
+        player_name.textContent = capitalize(element.player_name)
         line.appendChild(player_name)
   
         player_team_abbreviation = document.createElement("td")
